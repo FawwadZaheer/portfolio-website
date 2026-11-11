@@ -153,6 +153,25 @@ export const skills = [
   { label: '3D', value: 'Blender, low-poly modeling, rigging, weight painting' },
 ]
 
+export const education = [
+  {
+    degree: 'Bachelor of Science in Computer Science (Gaming & Animation)',
+    institution: 'NED University of Engineering and Technology',
+    period: '2023 – 2027',
+    summary:
+      'Undergraduate studies focusing on game programming, computer graphics, gameplay algorithms, and 3D simulation systems.',
+  },
+]
+
+export const experience = [
+  {
+    title: 'Academic & Personal Game Projects',
+    period: '2023 – Present',
+    summary:
+      'No corporate employment history or commercial internships yet. Hands-on experience gained through designing, programming, and releasing complete game projects in Unity and Unreal Engine 5, modeling 3D assets in Blender, and collaborative coursework.',
+  },
+]
+
 export const socials = [
   { label: 'GitHub', href: 'https://github.com/FawwadZaheer/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/fawwad-zaheer-369a2b29a/' },

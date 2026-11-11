@@ -1,4 +1,5 @@
 import { profile } from '../data.js'
+import ThemeToggle from './ThemeToggle.jsx'
 
 export default function Header() {
   return (
@@ -6,12 +7,16 @@ export default function Header() {
       <a className="logo" href="#top" aria-label={`${profile.name}, back to top`}>
         FZR
       </a>
-      <nav aria-label="Main">
-        <a href="#games">Games</a>
-        <a href="#models">3D models</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <div className="header-right">
+        <nav aria-label="Main">
+          <a href="#games">Games</a>
+          <a href="#models">3D models</a>
+          <a href="#experience">Education</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <ThemeToggle />
+      </div>
     </header>
   )
 }

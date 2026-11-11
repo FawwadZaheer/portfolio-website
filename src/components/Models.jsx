@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { models } from '../data.js'
 
 const VIEWS = [
@@ -6,6 +6,8 @@ const VIEWS = [
   { id: 'wire', label: 'Wireframe' },
   { id: 'video', label: 'Video' },
 ]
+
+const TAGS = ['All', 'Game-ready', 'Hard-surface', 'Rigging']
 
 function ModelCard({ model }) {
   const [view, setView] = useState('render')
@@ -58,15 +60,64 @@ function ModelCard({ model }) {
 }
 
 export default function Models() {
+  const [selectedTag, setSelectedTag] = useState('All')
+  const [search, setSearch] = useState('')
+
+  const filtered = useMemo(() => {
+    return models.filter((m) => {
+      const matchTag = selectedTag === 'All' || m.stack.includes(selectedTag)
+      const q = search.trim().toLowerCase()
+      const matchSearch =
+        !q ||
+        m.title.toLowerCase().includes(q) ||
+        m.summary.toLowerCase().includes(q) ||
+        m.stack.some((s) => s.toLowerCase().includes(q))
+      return matchTag && matchSearch
+    })
+  }, [selectedTag, search])
+
   return (
     <section id="models" aria-labelledby="models-title">
       <h2 id="models-title">3D models</h2>
       <p className="hint">All made in Blender. Switch between the render, wireframe, and video.</p>
-      <div className="model-grid">
-        {models.map((m) => (
-          <ModelCard key={m.id} model={m} />
-        ))}
+
+      {/* Filter and Search Bar */}
+      <div className="filter-bar">
+        <input
+          type="search"
+          className="search-input"
+          placeholder="Search 3D models..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search 3D models by name or tag"
+        />
+
+        <div className="filter-tags" role="group" aria-label="Filter 3D models by category">
+          {TAGS.map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              className="filter-tag"
+              aria-pressed={selectedTag === tag}
+              onClick={() => setSelectedTag(tag)}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
       </div>
+
+      {filtered.length === 0 ? (
+        <div className="empty-results">
+          <p>No models found matching "{search}".</p>
+        </div>
+      ) : (
+        <div className="model-grid">
+          {filtered.map((m) => (
+            <ModelCard key={m.id} model={m} />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

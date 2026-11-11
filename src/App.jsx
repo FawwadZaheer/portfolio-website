@@ -2,6 +2,7 @@ import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import Games from './components/Games.jsx'
 import Models from './components/Models.jsx'
+import Experience from './components/Experience.jsx'
 import About from './components/About.jsx'
 import Contact from './components/Contact.jsx'
 import { profile } from './data.js'
@@ -14,6 +15,7 @@ export default function App() {
         <Hero />
         <Games />
         <Models />
+        <Experience />
         <About />
         <Contact />
       </main>
