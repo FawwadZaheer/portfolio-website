@@ -114,3 +114,4 @@ Web3D_SemProject/
 ## 7. Version Control & Git State
 - **Remote Origin**: `https://github.com/FawwadZaheer/portfolio-website`
 - **Module 1 Commit**: `0e3cff6` ("feat(module-1): complete 3D interactive portfolio website, education section, theme switcher, and search filters")
+- **Module 2 Commit**: `a92dc7d` ("feat(module-2): integrate custom 3D avatar with Draco compression, orbit controls, wireframe mode, and blender deliverables")
