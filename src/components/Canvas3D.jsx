@@ -1,6 +1,7 @@
+import { useState, useEffect, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, OrbitControls } from '@react-three/drei'
-import { useRef, useState, useEffect } from 'react'
+import AvatarViewer from './AvatarViewer.jsx'
 
 function prefersReducedMotion() {
   return (
@@ -18,7 +19,6 @@ function RetroArtifact({ reducedMotion }) {
     if (reducedMotion) return
 
     const { x, y } = state.pointer
-    // Mouse reactive orientation
     if (meshRef.current) {
       meshRef.current.rotation.y += 0.008
       meshRef.current.rotation.x = y * 0.4
@@ -38,7 +38,6 @@ function RetroArtifact({ reducedMotion }) {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* Central multifaceted crystal */}
       <mesh ref={meshRef}>
         <octahedronGeometry args={[1.5, 0]} />
         <meshStandardMaterial
@@ -50,13 +49,11 @@ function RetroArtifact({ reducedMotion }) {
         />
       </mesh>
 
-      {/* Wireframe outer lattice */}
       <mesh ref={meshRef}>
         <octahedronGeometry args={[1.52, 0]} />
         <meshBasicMaterial color="#081820" wireframe wireframeLinewidth={2} />
       </mesh>
 
-      {/* Orbiting wireframe rings */}
       <mesh ref={ringRef}>
         <torusGeometry args={[2.2, 0.03, 8, 32]} />
         <meshBasicMaterial color="#346856" wireframe />
@@ -85,12 +82,14 @@ function WebGLFallback() {
 }
 
 export default function Canvas3D() {
+  const [mode, setMode] = useState('avatar') // 'avatar' | 'artifact'
+  const [autoRotate, setAutoRotate] = useState(true)
+  const [wireframe, setWireframe] = useState(false)
   const [hasWebGL, setHasWebGL] = useState(true)
   const [reducedMotion, setReducedMotion] = useState(false)
 
   useEffect(() => {
     setReducedMotion(prefersReducedMotion())
-
     try {
       const canvas = document.createElement('canvas')
       const supported = !!(
@@ -98,20 +97,41 @@ export default function Canvas3D() {
         (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
       )
       setHasWebGL(supported)
-    } catch (e) {
+    } catch {
       setHasWebGL(false)
     }
   }, [])
 
   return (
-    <div className="hero-canvas-wrap">
+    <div className="hero-canvas-wrap" id="avatar">
       <div className="canvas-header">
-        <span>● 3D_VIEWPORT // LIVE</span>
+        <div className="viewport-tabs" role="tablist" aria-label="3D Viewport mode">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === 'avatar'}
+            className={`viewport-tab ${mode === 'avatar' ? 'active' : ''}`}
+            onClick={() => setMode('avatar')}
+          >
+            ● 3D AVATAR
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={mode === 'artifact'}
+            className={`viewport-tab ${mode === 'artifact' ? 'active' : ''}`}
+            onClick={() => setMode('artifact')}
+          >
+            ● ARTIFACT
+          </button>
+        </div>
         <span className="fps-counter">60_FPS</span>
       </div>
 
       <div className="canvas-body">
-        {hasWebGL ? (
+        {mode === 'avatar' ? (
+          <AvatarViewer autoRotate={autoRotate} wireframe={wireframe} />
+        ) : hasWebGL ? (
           <Canvas
             camera={{ position: [0, 0, 5.2], fov: 45 }}
             gl={{ alpha: true, antialias: false, powerPreference: 'low-power' }}
@@ -135,8 +155,35 @@ export default function Canvas3D() {
         ) : (
           <WebGLFallback />
         )}
-        <div className="canvas-hint" aria-hidden="true">
-          [MOUSE REACTIVE]
+
+        <div className="canvas-footer-toolbar">
+          {mode === 'avatar' ? (
+            <div className="avatar-controls">
+              <button
+                type="button"
+                className="viewport-action-btn"
+                onClick={() => setAutoRotate(!autoRotate)}
+                aria-label={autoRotate ? 'Pause 360 rotation' : 'Enable 360 rotation'}
+              >
+                {autoRotate ? '⏸ PAUSE' : '▶ SPIN'}
+              </button>
+              <button
+                type="button"
+                className="viewport-action-btn"
+                onClick={() => setWireframe(!wireframe)}
+                aria-label={wireframe ? 'Render texture' : 'Render wireframe'}
+              >
+                {wireframe ? '■ TEXTURE' : '▦ WIRE'}
+              </button>
+              <span className="canvas-hint-inline" aria-hidden="true">
+                DRAG ORBIT // ZOOM
+              </span>
+            </div>
+          ) : (
+            <span className="canvas-hint-inline" aria-hidden="true">
+              [MOUSE PARALLAX ACTIVE]
+            </span>
+          )}
         </div>
       </div>
     </div>

@@ -79,8 +79,15 @@ Web3D_SemProject/
   - Education & Experience section added (`Experience.jsx`) featuring NED University (2023–2027) BS CS Gaming & Animation and academic projects notice.
   - Project Search & Tag Filtering for Games and 3D Models (*Extra Credit #4*).
   - Reduced-motion check & ARIA labels (*Extra Credit #5*).
-- **Module 2 (Custom 3D Avatar)**: ⏳ Pending approval & planning.
-- **Module 3 (Promotional Video)**: ⏳ Pending.
+- **Module 2 (Custom 3D Avatar)**: ✅ Completed & Verified in Browser
+  - Extracted uploaded 3D model assets and processed through Blender 5.0 headless pipeline.
+  - Saved academic deliverable: `public/models/avatar.blend` (3.18 MB).
+  - Exported Draco-compressed web asset: `public/models/avatar.glb` (4.62 MB).
+  - Built `src/components/AvatarViewer.jsx` with `@react-three/drei` Draco loader, `OrbitControls` (drag orbit & zoom), mouse tracking, and `<Suspense>` loading state.
+  - Added interactive toolbar controls: Auto-rotate toggle (`⏸ PAUSE` / `▶ SPIN`), Wireframe toggle (`▦ WIRE` / `■ TEXTURE` — *Extra Credit #9*), and viewport tab switcher (`● 3D AVATAR` / `● ARTIFACT`).
+  - Added `#avatar` smooth-scroll anchor in header.
+  - Updated academic profile with CEGA Pre-Production Unreal Certification.
+- **Module 3 (Promotional Video)**: ⏳ Pending approval & planning.
 - **Module 4 (RAG AI Chatbot)**: ⏳ Pending.
 - **Module 5 (Contact System)**: ⏳ Pending.
 - **Module 6 (Deployment & Docs)**: ⏳ Pending.

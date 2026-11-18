@@ -9,6 +9,7 @@ export default function Header() {
       </a>
       <div className="header-right">
         <nav aria-label="Main">
+          <a href="#avatar">Avatar</a>
           <a href="#games">Games</a>
           <a href="#models">3D models</a>
           <a href="#experience">Education</a>

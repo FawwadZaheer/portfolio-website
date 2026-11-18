@@ -71,13 +71,13 @@ The ship used in Ship Brawl. Built with box modeling, booleans, and proportional
   - Relevant courses: [TO FILL]
 
 ## Experience
-- No professional experience yet; academic and personal projects only.
+- No professional job experience yet; academic and personal projects only.
 
 ## Achievements and certifications
-- [TO FILL, or write "None listed yet."]
+- Pre-Production, Unreal Certification from Center of Excellence in Gaming & Animation (CEGA).
 
 ## Interests and extras (optional)
-- [TO FILL]
+- 3D Modelling
 
 ## Chatbot notes
 - Do not share: phone number, home address, grades, or anything not written in this file.

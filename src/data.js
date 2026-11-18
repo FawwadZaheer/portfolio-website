@@ -172,6 +172,14 @@ export const experience = [
   },
 ]
 
+export const achievements = [
+  {
+    title: 'Pre-Production, Unreal Certification',
+    issuer: 'Center of Excellence in Gaming & Animation (CEGA)',
+    summary: 'Professional certification covering game pre-production pipelines, Unreal Engine asset workflow, and production standards.',
+  },
+]
+
 export const socials = [
   { label: 'GitHub', href: 'https://github.com/FawwadZaheer/' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/fawwad-zaheer-369a2b29a/' },
