@@ -1,0 +1,7 @@
+Put the obby prize in this folder. It is only downloaded when a player reaches the top of the Sky Obby.
+
+  video:  reward.mp4 (or reward.webm)   <- used first; plays with its own sound
+  or a picture + tune:
+          reward.gif / .jpg / .png / .webp   and   reward.mp3 / .ogg / .m4a / .wav
+
+The game music pauses while the prize plays.

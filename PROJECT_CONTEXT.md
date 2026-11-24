@@ -33,8 +33,8 @@ Web3D_SemProject/
 ├── vite.config.js                   # Vite configuration
 ├── docs/                            # Academic deliverables & specifications
 │   ├── requirements.md              # Semester project requirements
-│   ├── video-storyboard.md          # Module 3 deliverable (pending)
-│   ├── rag-explained.md             # Module 4 deliverable (pending)
+│   ├── video-storyboard.md          # Module 3 deliverable
+│   ├── rag-explained.md             # Module 4 deliverable
 │   └── report-outline.md            # Module 6 deliverable (pending)
 ├── data/                            # Ground truth for RAG
 │   └── profile.md                   # Bio, education, skills, projects
@@ -46,7 +46,7 @@ Web3D_SemProject/
 │   ├── models/
 │   │   └── avatar.glb               # Module 2 placeholder/final GLB (pending)
 │   └── video/
-│       └── promo.mp4                # Module 3 placeholder/final MP4 (pending)
+│       └── promo.mp4                # Module 3 final MP4 + soundtrack.wav
 ├── src/
 │   ├── main.jsx                     # App entry point
 │   ├── App.jsx                      # Section composition
@@ -87,8 +87,18 @@ Web3D_SemProject/
   - Added interactive toolbar controls: Auto-rotate toggle (`⏸ PAUSE` / `▶ SPIN`), Wireframe toggle (`▦ WIRE` / `■ TEXTURE` — *Extra Credit #9*), and viewport tab switcher (`● 3D AVATAR` / `● ARTIFACT`).
   - Added `#avatar` smooth-scroll anchor in header.
   - Updated academic profile with CEGA Pre-Production Unreal Certification.
-- **Module 3 (Promotional Video)**: ⏳ Pending approval & planning.
-- **Module 4 (RAG AI Chatbot)**: ⏳ Pending.
+- **Module 3 (Promotional Video)**: ✅ Completed (Blender render approved as the video deliverable; no `.aep`)
+  - `public/video/promo.mp4`: 42 s, 1920x1080, 30 fps, H.264 + AAC stereo; assembled in Blender's sequencer by `render_promo.py`.
+  - `public/video/soundtrack.wav`: original synthesized chiptune from `generate_audio.py` (no licensing issues).
+  - `src/components/PromoVideo.jsx`: accessible modal player opened from the Hero button (Esc to close, download link).
+  - Storyboard in `docs/video-storyboard.md`. Both scripts now use paths relative to the project root.
+- **Module 4 (RAG AI Chatbot)**: 🛠 Implemented; awaiting `GEMINI_API_KEY` for first live test
+  - Provider: Gemini (embeddings `gemini-embedding-001`, chat model from `GEMINI_CHAT_MODEL`), plain REST, no SDK.
+  - `rag/`: `chunker.js`, `gemini.js`, `retrieve.js`, `chat.js`, `ingest.js` -> `rag/index.json` (JSON vector index, in-memory cosine search).
+  - `backend/`: Express + Zod + helmet + CORS allow-list + rate limit; `POST /api/chat` streams server-sent events.
+  - `src/components/Chatbot.jsx`: floating chat panel with streaming, suggestions, error states and clickable source chips.
+  - 9 unit tests in `rag/tests/` pass (`cd backend && npm test`); explanation in `docs/rag-explained.md`.
+  - Not yet verified: live Gemini calls, the Express route, and a browser run.
 - **Module 5 (Contact System)**: ⏳ Pending.
 - **Module 6 (Deployment & Docs)**: ⏳ Pending.
 
@@ -100,6 +110,7 @@ Web3D_SemProject/
 - **Decision 3**: Plain JavaScript (JSX) preserved; no TypeScript migration.
 - **Decision 4**: React 18 dependency compatibility strictly maintained (`three@^0.160.1`, `@react-three/fiber@^8.18.0`, `@react-three/drei@^9.122.0`).
 - **Decision 5**: Experience section restricted strictly to academic and personal projects (no hallucinated corporate jobs).
+- **Decision 6**: Module 3 video produced with Blender VSE instead of After Effects; approved by the student (instructor allowed it). No `.aep` is submitted.
 
 ---
 

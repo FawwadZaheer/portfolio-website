@@ -9,7 +9,7 @@ const VIEWS = [
 
 const TAGS = ['All', 'Game-ready', 'Hard-surface', 'Rigging']
 
-function ModelCard({ model }) {
+export function ModelCard({ model }) {
   const [view, setView] = useState('render')
 
   return (

@@ -1,6 +1,23 @@
-node_modules
-dist
-.DS_Store
+# dependencies and build output
+node_modules/
+dist/
+.vercel/
+
+# secrets: NEVER commit these (use backend/.env.example as the template)
 .env
-.env.local
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# After Effects / Media Encoder leftovers (the collected .aep and final MP4 ARE committed)
+**/Adobe After Effects Auto-Save/
+**/*_AME/
+*.avi
+
+# OS / editor / logs
+.DS_Store
+Thumbs.db
+desktop.ini
 *.log

@@ -10,7 +10,12 @@ export default function ThemeToggle() {
   const [themeIndex, setThemeIndex] = useState(0)
 
   useEffect(() => {
-    const saved = localStorage.getItem('retro_theme')
+    let saved = null
+    try {
+      saved = localStorage.getItem('retro_theme')
+    } catch {
+      /* storage unavailable */
+    }
     if (saved) {
       const idx = THEMES.findIndex((t) => t.id === saved)
       if (idx !== -1) {
@@ -25,7 +30,11 @@ export default function ThemeToggle() {
     const theme = THEMES[next]
     setThemeIndex(next)
     document.documentElement.setAttribute('data-theme', theme.id)
-    localStorage.setItem('retro_theme', theme.id)
+    try {
+      localStorage.setItem('retro_theme', theme.id)
+    } catch {
+      /* storage unavailable */
+    }
   }
 
   const current = THEMES[themeIndex]
@@ -35,11 +44,11 @@ export default function ThemeToggle() {
       type="button"
       className="theme-toggle-btn"
       onClick={cycleTheme}
-      aria-label={`Current palette: ${current.label}. Click to switch palette.`}
+      aria-label={`${current.label} palette: switch`}
       title="Switch palette (Game Boy DMG / Pocket / Night)"
     >
       <span className="theme-icon" aria-hidden="true">{current.icon}</span>
-      <span className="theme-text">{current.label}</span>
+      <span className="theme-text hide-sm">{current.label}</span>
     </button>
   )
 }

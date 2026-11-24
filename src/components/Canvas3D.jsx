@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { useInView } from '../hooks.js'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Float, OrbitControls } from '@react-three/drei'
 import AvatarViewer from './AvatarViewer.jsx'
@@ -38,21 +39,24 @@ function RetroArtifact({ reducedMotion }) {
 
   return (
     <group position={[0, 0, 0]}>
-      <mesh ref={meshRef}>
-        <octahedronGeometry args={[1.5, 0]} />
-        <meshStandardMaterial
-          color="#88c070"
-          emissive="#346856"
-          roughness={0.4}
-          metalness={0.2}
-          flatShading
-        />
-      </mesh>
+      {/* one group so the solid crystal and its wireframe cage turn together */}
+      <group ref={meshRef}>
+        <mesh>
+          <octahedronGeometry args={[1.5, 0]} />
+          <meshStandardMaterial
+            color="#88c070"
+            emissive="#346856"
+            roughness={0.4}
+            metalness={0.2}
+            flatShading
+          />
+        </mesh>
 
-      <mesh ref={meshRef}>
-        <octahedronGeometry args={[1.52, 0]} />
-        <meshBasicMaterial color="#081820" wireframe wireframeLinewidth={2} />
-      </mesh>
+        <mesh>
+          <octahedronGeometry args={[1.52, 0]} />
+          <meshBasicMaterial color="#081820" wireframe wireframeLinewidth={2} />
+        </mesh>
+      </group>
 
       <mesh ref={ringRef}>
         <torusGeometry args={[2.2, 0.03, 8, 32]} />
@@ -87,6 +91,9 @@ export default function Canvas3D() {
   const [wireframe, setWireframe] = useState(false)
   const [hasWebGL, setHasWebGL] = useState(true)
   const [reducedMotion, setReducedMotion] = useState(false)
+  const wrapRef = useRef(null)
+  // Stop drawing frames while the viewport is scrolled out of sight (saves CPU, GPU and battery).
+  const inView = useInView(wrapRef)
 
   useEffect(() => {
     setReducedMotion(prefersReducedMotion())
@@ -103,7 +110,7 @@ export default function Canvas3D() {
   }, [])
 
   return (
-    <div className="hero-canvas-wrap" id="avatar">
+    <div className="hero-canvas-wrap" id="avatar" ref={wrapRef}>
       <div className="canvas-header">
         <div className="viewport-tabs" role="tablist" aria-label="3D Viewport mode">
           <button
@@ -125,14 +132,15 @@ export default function Canvas3D() {
             ● ARTIFACT
           </button>
         </div>
-        <span className="fps-counter">60_FPS</span>
+        <span className="fps-counter" aria-hidden="true">{inView ? '60_FPS' : 'PAUSED'}</span>
       </div>
 
       <div className="canvas-body">
         {mode === 'avatar' ? (
-          <AvatarViewer autoRotate={autoRotate} wireframe={wireframe} />
+          <AvatarViewer autoRotate={autoRotate} wireframe={wireframe} active={inView} />
         ) : hasWebGL ? (
           <Canvas
+            frameloop={inView ? 'always' : 'never'}
             camera={{ position: [0, 0, 5.2], fov: 45 }}
             gl={{ alpha: true, antialias: false, powerPreference: 'low-power' }}
           >
@@ -163,17 +171,19 @@ export default function Canvas3D() {
                 type="button"
                 className="viewport-action-btn"
                 onClick={() => setAutoRotate(!autoRotate)}
-                aria-label={autoRotate ? 'Pause 360 rotation' : 'Enable 360 rotation'}
+                aria-pressed={autoRotate}
+                title="Turntable rotation"
               >
-                {autoRotate ? '⏸ PAUSE' : '▶ SPIN'}
+                ↻ SPIN
               </button>
               <button
                 type="button"
                 className="viewport-action-btn"
                 onClick={() => setWireframe(!wireframe)}
-                aria-label={wireframe ? 'Render texture' : 'Render wireframe'}
+                aria-pressed={wireframe}
+                title="Wireframe view"
               >
-                {wireframe ? '■ TEXTURE' : '▦ WIRE'}
+                ▦ WIRE
               </button>
               <span className="canvas-hint-inline" aria-hidden="true">
                 DRAG ORBIT // ZOOM

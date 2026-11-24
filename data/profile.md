@@ -52,6 +52,13 @@ The games here use free online assets, except the ship and cannon models in Ship
 - Controls: WASD to steer, mouse for the camera, left/right click to fire the left/right cannons.
 - Link: [TO FILL if any]
 
+### Tiptoe Thief (Unity, 3D stealth, GMTK Game Jam)
+- Description: A stealth game made for the GMTK Game Jam on the theme "Mask". The player uses environmental noise and timing to mask their own movement sounds and avoid enemy detection.
+- My role: Gameplay programming, stealth mechanic implementation, sound masking system, player movement, UI and gameplay flow setup.
+- Team: Team project for the GMTK Game Jam. Teammates handled asset integration, level design, audio implementation, playtesting and balancing.
+- Tech: Unity, C#, Unity Audio System.
+- What I learned: designing mechanics around a constrained theme, audio-driven gameplay, rapid prototyping and managing scope under jam time pressure.
+
 ## 3D models (Blender)
 
 ### Low-poly axe
@@ -74,7 +81,9 @@ The ship used in Ship Brawl. Built with box modeling, booleans, and proportional
 - No professional job experience yet; academic and personal projects only.
 
 ## Achievements and certifications
-- Pre-Production, Unreal Certification from Center of Excellence in Gaming & Animation (CEGA).
+- Pre-Production Certification from Center of Excellence in Gaming & Animation (CEGA).
+- Unreal Engine Certification from Center of Excellence in Gaming & Animation (CEGA).
+- These are two separate certificates.
 
 ## Interests and extras (optional)
 - 3D Modelling

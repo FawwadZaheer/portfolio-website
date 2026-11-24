@@ -1,7 +1,10 @@
 // EDIT THIS FILE: all of your content lives here.
 // Media files live in /public/media (see README).
 
-const media = (kind, slug, file) => `/media/${kind}/${slug}/${file}`
+// Bump MEDIA_VERSION whenever you replace files in /public/media or /public/video:
+// it changes every URL, so browsers can't keep playing an old cached copy.
+export const MEDIA_VERSION = '2026-11-24c'
+const media = (kind, slug, file) => `/media/${kind}/${slug}/${file}?v=${MEDIA_VERSION}`
 
 export const profile = {
   name: 'Fawwad Zaheer Rizvi',
@@ -31,6 +34,7 @@ export const games = [
     controls: 'Left click to place turrets and use the menus.',
     stack: ['Unity', 'C#', 'Unity UI', 'Basic, Sniper and Slowmo turrets'],
     video: media('games', 'base-defenders', 'video.mp4'),
+    attract: media('games', 'base-defenders', 'attract.mp4'),
     poster: media('games', 'base-defenders', 'video-poster.webp'),
     shots: [
       media('games', 'base-defenders', 'shot-1.webp'),
@@ -57,6 +61,11 @@ export const games = [
     controls: 'A / D to move, Space to jump, Shift to sprint, W to climb ladders.',
     stack: ['Unity', 'C#', 'Unity 2D'],
     video: media('games', 'dungeon-escape', 'video.mp4'),
+    attract: media('games', 'dungeon-escape', 'attract.mp4'),
+    // Windows build, served from public/downloads/
+    download: { href: '/downloads/Dungeon-Escape-Windows.zip', label: 'Download for Windows (zip, 41 MB)' },
+    // Re-export from Unity as WebGL, copy the build into public/games/dungeon-escape/, then uncomment:
+    // play: '/games/dungeon-escape/index.html',
     poster: media('games', 'dungeon-escape', 'video-poster.webp'),
     shots: [
       media('games', 'dungeon-escape', 'shot-1.webp'),
@@ -83,10 +92,37 @@ export const games = [
     controls: 'WASD to steer, mouse for the camera, left / right click to fire the left / right cannons.',
     stack: ['Unreal Engine 5', 'Blueprints', 'Blender', 'Water plugin'],
     video: media('games', 'ship-brawl', 'video.mp4'),
+    attract: media('games', 'ship-brawl', 'attract.mp4'),
     poster: media('games', 'ship-brawl', 'video-poster.webp'),
     shots: [
       media('games', 'ship-brawl', 'shot-1.webp'),
       media('games', 'ship-brawl', 'shot-2.webp'),
+    ],
+    links: [],
+  },
+  {
+    id: 'tiptoe-thief',
+    title: 'Tiptoe Thief',
+    engine: 'Unity',
+    kind: '3D stealth, game jam',
+    summary:
+      'A stealth game made for the GMTK Game Jam on the theme "Mask". Use surrounding noise to mask the sound of your own steps and sneak past enemy detection.',
+    role: [
+      'Gameplay programming',
+      'Stealth mechanic implementation',
+      'Sound masking system',
+      'Player movement',
+      'UI and gameplay flow setup',
+    ],
+    team: 'Team project for the GMTK Game Jam. Teammates handled asset integration, level design, audio implementation, playtesting and balancing.',
+    controls: null,
+    stack: ['Unity', 'C#', 'Unity Audio', 'GMTK Game Jam'],
+    video: media('games', 'tiptoe-thief', 'video.mp4'),
+    attract: media('games', 'tiptoe-thief', 'attract.mp4'),
+    poster: media('games', 'tiptoe-thief', 'video-poster.webp'),
+    shots: [
+      media('games', 'tiptoe-thief', 'shot-1.webp'),
+      media('games', 'tiptoe-thief', 'shot-2.webp'),
     ],
     links: [],
   },
@@ -174,9 +210,14 @@ export const experience = [
 
 export const achievements = [
   {
-    title: 'Pre-Production, Unreal Certification',
+    title: 'Pre-Production Certification',
     issuer: 'Center of Excellence in Gaming & Animation (CEGA)',
-    summary: 'Professional certification covering game pre-production pipelines, Unreal Engine asset workflow, and production standards.',
+    summary: 'Professional certification covering game pre-production pipelines, planning and production standards.',
+  },
+  {
+    title: 'Unreal Engine Certification',
+    issuer: 'Center of Excellence in Gaming & Animation (CEGA)',
+    summary: 'Professional certification covering Unreal Engine development and the asset workflow into the engine.',
   },
 ]
 

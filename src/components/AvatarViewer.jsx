@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect, Suspense } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect, Suspense } from 'react'
+import { Box3, Vector3 } from 'three'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, useGLTF, Float } from '@react-three/drei'
 
@@ -10,8 +11,24 @@ function prefersReducedMotion() {
 }
 
 function AvatarModel({ wireframe, reducedMotion, mouseTracking }) {
-  const { scene } = useGLTF('/models/avatar.glb', true)
+  const { scene } = useGLTF('/models/avatar.glb', '/draco/')
   const groupRef = useRef()
+  const fitRef = useRef()
+
+  // Centre the model on the turntable axis and scale it to a known height, so it always sits
+  // in the middle of the viewport whatever the export's origin and units are.
+  useLayoutEffect(() => {
+    const fit = fitRef.current
+    if (!fit) return
+    fit.position.set(0, 0, 0)
+    fit.scale.setScalar(1)
+    const box = new Box3().setFromObject(scene)
+    const size = box.getSize(new Vector3())
+    const center = box.getCenter(new Vector3())
+    const k = size.y > 0 ? 1.75 / size.y : 1
+    fit.scale.setScalar(k)
+    fit.position.set(-center.x * k, -center.y * k + 0.1, -center.z * k)
+  }, [scene])
 
   // Apply wireframe toggle dynamically across materials
   useEffect(() => {
@@ -37,8 +54,10 @@ function AvatarModel({ wireframe, reducedMotion, mouseTracking }) {
   })
 
   return (
-    <group ref={groupRef} position={[0, -0.9, 0]}>
-      <primitive object={scene} />
+    <group ref={groupRef}>
+      <group ref={fitRef}>
+        <primitive object={scene} />
+      </group>
     </group>
   )
 }
@@ -52,7 +71,7 @@ function AvatarLoading() {
   )
 }
 
-export default function AvatarViewer({ autoRotate = true, wireframe = false }) {
+export default function AvatarViewer({ autoRotate = true, wireframe = false, active = true }) {
   const [hasWebGL, setHasWebGL] = useState(true)
   const [reducedMotion, setReducedMotion] = useState(false)
   const controlsRef = useRef()
@@ -82,7 +101,9 @@ export default function AvatarViewer({ autoRotate = true, wireframe = false }) {
   return (
     <Suspense fallback={<AvatarLoading />}>
       <Canvas
-        camera={{ position: [0, 0.2, 2.6], fov: 45 }}
+        frameloop={active ? 'always' : 'never'}
+        dpr={[1, 2]}
+        camera={{ position: [0, 0.15, 2.75], fov: 45 }}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       >
         <ambientLight intensity={1.2} />
@@ -115,4 +136,4 @@ export default function AvatarViewer({ autoRotate = true, wireframe = false }) {
 }
 
 // Preload the avatar model for smooth rendering
-useGLTF.preload('/models/avatar.glb', true)
+useGLTF.preload('/models/avatar.glb', '/draco/')

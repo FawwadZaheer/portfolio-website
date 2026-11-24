@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Interactive 3D Web Portfolio: Project Report (Fawwad Zaheer Rizvi)</title>
+<!--
+  Source of the PDF report. To update it: edit this file, open it in Chrome or Edge,
+  press Ctrl+P, choose "Save as PDF" (Margins: Default, Background graphics: on).
+-->
+<style>
+  @font-face { font-family: "Press Start 2P"; src: url(../../public/fonts/press-start-2p-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; src: url(../../public/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 600; src: url(../../public/fonts/ibm-plex-mono-latin-600-normal.woff2) format("woff2"); }
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  :root { --lightest: #e0f8d0; --light: #88c070; --dark: #346856; --darkest: #081820; }
+  * { box-sizing: border-box; }
+  body { font-family: "IBM Plex Mono", "Courier New", monospace; font-size: 10.5pt; line-height: 1.55; color: var(--darkest); margin: 0; }
+  h1, h2, h3, .pixel { font-family: "Press Start 2P", monospace; font-weight: 400; }
+  h1 { font-size: 22pt; line-height: 1.35; margin: 0 0 8mm; }
+  h2 { font-size: 12pt; line-height: 1.5; margin: 9mm 0 4mm; padding-bottom: 2mm; border-bottom: 3px solid var(--darkest); break-after: avoid; }
+  h3 { font-size: 8.5pt; line-height: 1.6; margin: 6mm 0 2.5mm; break-after: avoid; }
+  p { margin: 0 0 3mm; }
+  ul, ol { margin: 0 0 3mm; padding-left: 6mm; }
+  li { margin-bottom: 1mm; }
+  code { font-size: 9pt; background: #eef6e6; padding: 0 1mm; }
+  table { width: 100%; border-collapse: collapse; margin: 2mm 0 4mm; font-size: 9pt; break-inside: avoid; }
+  th, td { border: 1.5px solid var(--darkest); padding: 1.6mm 2mm; text-align: left; vertical-align: top; }
+  th { background: var(--darkest); color: var(--lightest); font-weight: 600; }
+  figure { margin: 3mm 0 5mm; break-inside: avoid; }
+  figure img { width: 100%; border: 2px solid var(--darkest); display: block; }
+  .pair { display: flex; gap: 4mm; align-items: flex-start; break-inside: avoid; margin: 3mm 0 5mm; }
+  .pair figure { flex: 1 1 0; margin: 0; }
+  figure.narrow img { width: 60%; margin: 0 auto; }
+  figcaption { font-size: 8.5pt; color: var(--dark); margin-top: 1.5mm; }
+  .cover { height: 255mm; display: flex; flex-direction: column; justify-content: center; page-break-after: always; }
+  .cover .kicker { font-family: "Press Start 2P"; font-size: 8pt; color: var(--dark); letter-spacing: .1em; margin-bottom: 6mm; }
+  .cover dl { display: grid; grid-template-columns: 38mm 1fr; gap: 2mm 4mm; margin: 6mm 0 0; font-size: 10.5pt; }
+  .cover dt { font-weight: 600; }
+  .cover dd { margin: 0; }
+  .cover .bar { height: 4mm; width: 60mm; margin: 0 0 8mm; background: repeating-linear-gradient(90deg, var(--darkest) 0 4mm, transparent 4mm 6mm); }
+  .todo { background: #fff3b0; border: 2px dashed #8a6d00; padding: 2mm 3mm; font-size: 9pt; }
+  span.todo { padding: 0 1mm; border-width: 1px; line-height: 1.4; }
+  .toc { columns: 2; font-size: 9.5pt; }
+  .toc li { break-inside: avoid; }
+  .page-break { page-break-before: always; }
+  .callout { border: 2px solid var(--darkest); background: #f1faea; padding: 3mm 4mm; margin: 3mm 0 4mm; break-inside: avoid; }
+  pre { font-size: 8.5pt; background: #f1faea; border: 1.5px solid var(--darkest); padding: 3mm; white-space: pre-wrap; break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="kicker">SEMESTER PROJECT REPORT</div>
+  <div class="bar"></div>
+  <h1>Interactive 3D<br />Web Portfolio</h1>
+  <p>A playable, Game Boy-styled portfolio with a custom 3D avatar, an After Effects promo, a retrieval-augmented chatbot and a contact system.</p>
+  <dl>
+    <dt>Student</dt><dd>Fawwad Zaheer Rizvi</dd>
+    <dt>Programme</dt><dd>BS Computer Science (Gaming &amp; Animation), NED University of Engineering and Technology</dd>
+    <dt>Live site</dt><dd><span class="todo">https://&lt;your-project&gt;.vercel.app</span></dd>
+    <dt>Repository</dt><dd><span class="todo">https://github.com/FawwadZaheer/portfolio-website</span></dd>
+    <dt>Date</dt><dd>November 2026</dd>
+  </dl>
+</section>
+
+<h2>Contents</h2>
+<ol class="toc">
+  <li>Introduction and objectives</li>
+  <li>Technology stack and architecture</li>
+  <li>Module 1: 3D web portfolio</li>
+  <li>Module 2: Custom 3D avatar</li>
+  <li>Module 3: Promotional video</li>
+  <li>Module 4: RAG chatbot</li>
+  <li>Module 5: Email and contact system</li>
+  <li>Module 6: Deployment and documentation</li>
+  <li>Extra credit</li>
+  <li>Testing, performance and accessibility</li>
+  <li>Challenges and solutions</li>
+  <li>Limitations and future work</li>
+  <li>Conclusion</li>
+  <li>Appendix: screenshot checklist and credits</li>
+</ol>
+
+<h2>1. Introduction and objectives</h2>
+<p>The goal was a modern, interactive 3D portfolio that presents my profile, skills, projects and achievements as a game developer. Because I make games, the portfolio is itself a small game. Visitors land on a 3D island and walk my avatar between stations, each of which opens a part of the portfolio. Visitors who prefer a normal page can switch to a classic scrolling site with the same content.</p>
+<p>The project covers six modules:</p>
+<ul>
+  <li>the website with 3D elements</li>
+  <li>a custom avatar made in Blender</li>
+  <li>a promotional video made in After Effects</li>
+  <li>a retrieval-augmented generation (RAG) chatbot that only answers from my own documents</li>
+  <li>a secure contact form that emails me</li>
+  <li>deployment with documentation</li>
+</ul>
+<p>Several extra-credit features were added on top of these.</p>
+
+<h2>2. Technology stack and architecture</h2>
+<table>
+  <tr><th style="width:28%">Layer</th><th>Technology</th></tr>
+  <tr><td>Frontend</td><td>React 18, Vite 5, three.js, @react-three/fiber, @react-three/drei, hand-written CSS (4-colour Game Boy palette)</td></tr>
+  <tr><td>Backend</td><td>Node.js 20, Express, Zod validation, helmet, express-rate-limit, Nodemailer</td></tr>
+  <tr><td>RAG</td><td>Google Gemini embeddings (<code>gemini-embedding-001</code>, 768 dimensions) and chat model, JSON vector index, in-memory cosine search</td></tr>
+  <tr><td>Content creation</td><td>Blender (avatar and models, Draco-compressed GLB), Adobe After Effects (promo), Python scripts for the music, sound effects and text images</td></tr>
+  <tr><td>Hosting</td><td>Vercel: static site plus the Express API as one serverless function on the same domain</td></tr>
+</table>
+<pre>
+ Browser ──────────────► Vercel CDN: index.html, JS chunks, GLB, videos, audio
+    │
+    └── /api/chat, /api/contact ──► api/index.js (Express app from backend/src/app.js)
+                                       ├── chat:    embed question → top-k search in rag/index.json
+                                       │            → Gemini answers from those chunks only (streamed)
+                                       └── contact: Zod validation, honeypot, rate limit → Gmail SMTP
+</pre>
+<p>All content (games, models, education, links) lives in one file, <code>src/data.js</code>, and both views read from it. The chatbot reads <code>data/profile.md</code>. Secrets live only in environment variables, never in the code or the repository.</p>
+
+<h2>3. Module 1: 3D web portfolio</h2>
+<h3>Game mode (default)</h3>
+<p>A low-poly island built with React Three Fiber. The player character is my avatar, controlled with WASD or arrow keys (Shift to run, Space to jump), or with a touch joystick on phones. Stations around the island open full panels with the portfolio content:</p>
+<ul>
+  <li><strong>Games Arcade:</strong> one cabinet per game, with live gameplay on its screen</li>
+  <li><strong>3D Model Gallery:</strong> my Blender models</li>
+  <li><strong>Academy:</strong> education, experience and certifications</li>
+  <li><strong>About sign</strong></li>
+  <li><strong>Mailbox:</strong> contact form</li>
+  <li><strong>Promo TV</strong></li>
+  <li><strong>FZR-BOT robot:</strong> chatbot</li>
+</ul>
+<p>The game also has:</p>
+<ul>
+  <li>a minimap</li>
+  <li>a pause menu with fast travel to any station</li>
+  <li>12 collectible cartridges</li>
+  <li>background music and ambience</li>
+  <li>a timed obstacle course (the "Sky Obby")</li>
+</ul>
+<div class="pair">
+<figure class="half"><img src="../screenshots/10-game-title.png" alt="" /><figcaption>Figure 1. Title screen.</figcaption></figure>
+<figure class="half"><img src="../screenshots/12-game-arcade.png" alt="" /><figcaption>Figure 2. The Games Arcade: each cabinet plays its game.</figcaption></figure>
+</div>
+<div class="pair">
+<figure class="half"><img src="../screenshots/13-game-arcade-panel.png" alt="" /><figcaption>Figure 3. A game panel: video, screenshots, my role, controls.</figcaption></figure>
+<figure class="half"><img src="../screenshots/15-game-menu.png" alt="" /><figcaption>Figure 4. Pause menu with fast travel.</figcaption></figure>
+</div>
+
+<h3>Classic view</h3>
+<p>A responsive scrolling site with these sections:</p>
+<ul>
+  <li><strong>Home:</strong> name, tagline, 3D avatar viewer, stats</li>
+  <li><strong>Games:</strong> level-select list with video, screenshots and lightbox</li>
+  <li><strong>3D models:</strong> render, wireframe and video for each model</li>
+  <li><strong>Education and experience</strong></li>
+  <li><strong>About and skills</strong></li>
+  <li><strong>Contact</strong></li>
+</ul>
+<p>It has a sticky header that highlights the current section, numbered section headings, fade-in on scroll (disabled when the visitor asks for reduced motion) and a mobile layout.</p>
+<figure><img src="../screenshots/01-classic-home.png" alt="" /><figcaption>Figure 5. Classic view, home section with the 3D avatar viewer.</figcaption></figure>
+<div class="pair">
+<figure class="half"><img src="../screenshots/02-classic-games.png" alt="" /><figcaption>Figure 6. Games section with search and engine filters.</figcaption></figure>
+<figure class="half"><img src="../screenshots/03-classic-models.png" alt="" /><figcaption>Figure 7. 3D models with render, wireframe and video tabs.</figcaption></figure>
+</div>
+<div class="pair">
+<figure class="half"><img src="../screenshots/04-classic-education.png" alt="" /><figcaption>Figure 8. Education, experience and certifications.</figcaption></figure>
+<figure class="half narrow"><img src="../screenshots/09-classic-mobile.png" alt="" /><figcaption>Figure 9. Mobile layout (390 px wide).</figcaption></figure>
+</div>
+
+<h2>4. Module 2: Custom 3D avatar</h2>
+<p>The avatar is a textured 3D model of me. It was generated from my photos with an AI image-to-3D tool and then prepared in Blender, where it was scaled, oriented and exported. <span class="todo">Check this sentence and describe your own Blender work accurately.</span> Deliverables are the Blender file (<code>public/models/avatar.blend</code>) and the web model (<code>public/models/avatar.glb</code>).</p>
+<p><strong>Optimisation:</strong> the web model keeps its Draco-compressed geometry (about 40,000 vertices and 69,000 triangles). Its texture was re-encoded from a 2048 px PNG to a 1024 px JPEG, which cut the file from 4.5 MB to 460 KB with no visible difference at the size it is shown. The full-size original is kept in <code>assets-source/</code>.</p>
+<p><strong>In the website:</strong> the hero viewer lets visitors orbit, zoom, pause the turntable spin and switch to wireframe. The viewer stops rendering when it is scrolled off screen. In game mode the same model is the player character. It has no skeleton, so walking, running, jumping and landing are animated in code: stride bob, body sway, lean and squash-and-stretch.</p>
+
+<h2>5. Module 3: Promotional video</h2>
+<p>A 44-second, 1920×1080, 30 fps promo in the style of a retro game: boot screen, "Stage" title cards for each game, a bonus stage for the Blender models, a character sheet with skills and certifications, and a "Ready for Player 2?" outro with contact details.</p>
+<p><strong>How it was made:</strong> the After Effects project is built by an ExtendScript (<code>tools/promo/ae/build_promo_ae.jsx</code>) that creates the compositions, layers, keyframes, transitions and effects (glitch bands, CRT scanlines, vignette) from my gameplay and model footage. I then rendered it in After Effects through Media Encoder (H.264 + AAC).</p>
+<p><strong>Music:</strong> the soundtrack is an original chiptune generated by a script, so there are no licensing issues.</p>
+<p><strong>Files:</strong></p>
+<ul>
+  <li><code>after-effects/</code>: the <code>.aep</code> project and the full-quality render</li>
+  <li><code>public/video/promo.mp4</code>: a 9.5 MB copy of the same render for the website</li>
+</ul>
+<p>Visitors can watch it from the home section or on the island's TV.</p>
+<figure><img src="../screenshots/08-promo-video.png" alt="" /><figcaption>Figure 10. The promo playing in the site's video player.</figcaption></figure>
+
+<h2>6. Module 4: RAG chatbot</h2>
+<p>FZR-BOT answers questions about me using only the facts in <code>data/profile.md</code>.</p>
+<table>
+  <tr><th style="width:20%">Step</th><th>Implementation</th></tr>
+  <tr><td>Load and clean</td><td><code>rag/ingest.js</code> reads <code>data/*.md</code> and removes placeholders and notes</td></tr>
+  <tr><td>Chunk</td><td>Split by heading, so each project, model or skill group is one chunk. Long sections are split at 900 characters with a 150-character overlap.</td></tr>
+  <tr><td>Embed and store</td><td>Gemini <code>gemini-embedding-001</code>, 768 dimensions, normalised vectors, saved in <code>rag/index.json</code></td></tr>
+  <tr><td>Retrieve</td><td>Embed the question, cosine similarity, top 4 chunks above a minimum score</td></tr>
+  <tr><td>Generate</td><td>A strict system prompt plus the retrieved chunks. The answer is streamed to the browser as server-sent events.</td></tr>
+  <tr><td>Cite</td><td>Each answer shows source chips that link to the matching section of the site</td></tr>
+</table>
+<p><strong>Preventing made-up answers:</strong></p>
+<ul>
+  <li>If no chunk is relevant enough, the server replies with a fixed "I don't have that information" message and never calls the language model.</li>
+  <li>Greetings and small talk are handled locally.</li>
+  <li>The prompt forbids revealing the instructions or the raw documents.</li>
+</ul>
+<p><strong>Abuse limits:</strong> questions are capped at 500 characters and history at 6 turns, and each IP gets 15 requests per minute.</p>
+<p><strong>Chat interface:</strong> message history, a typing indicator, error messages, suggested questions, and keyboard and screen-reader support.</p>
+<div class="pair">
+<figure class="half"><img src="../screenshots/17-chatbot-panel.png" alt="" /><figcaption>Figure 11. The chat panel with suggested questions.</figcaption></figure>
+</div>
+<div class="todo">Add a screenshot of a live answer with its source chips from the deployed site (for example "What games has Fawwad built?"), as Figure 12.</div>
+
+<h2>7. Module 5: Email and contact system</h2>
+<ul>
+  <li><strong>Fields:</strong> name, email, subject and message, with live validation in the browser (<code>src/contactRules.js</code>) and the same rules on the server with Zod.</li>
+  <li><strong>Sanitising:</strong> line breaks are removed from header fields to block email-header injection, and the HTML email body is escaped. Reply-To is passed as a structured address, never as concatenated text.</li>
+  <li><strong>Spam protection:</strong>
+    <ul>
+      <li>a hidden honeypot field</li>
+      <li>a minimum fill time of 3 seconds</li>
+      <li>at most 3 links per message</li>
+      <li>a rate limit of 5 messages per 15 minutes per IP</li>
+    </ul>
+    Bots get a fake success response and nothing is sent.</li>
+  <li><strong>Delivery:</strong> Gmail SMTP with an App Password through Nodemailer, or Resend. The credentials exist only in environment variables, and <code>backend/.env.example</code> documents them.</li>
+  <li><strong>Feedback:</strong> clear success, validation and server-error messages, plus a character counter.</li>
+</ul>
+<div class="pair">
+<figure class="half"><img src="../screenshots/06-contact-form.png" alt="" /><figcaption>Figure 13. Contact form.</figcaption></figure>
+<figure class="half"><img src="../screenshots/07-contact-sent.png" alt="" /><figcaption>Figure 14. Success message after sending.</figcaption></figure>
+</div>
+<div class="todo">Evidence of delivery: add a screenshot of the received email in your Gmail inbox, sent from the live site (Figure 15).</div>
+
+<h2>8. Module 6: Deployment and documentation</h2>
+<p>The site and the API are deployed together on Vercel from the public GitHub repository:</p>
+<ul>
+  <li>Vite builds the static site to <code>dist/</code>.</li>
+  <li><code>vercel.json</code> sends every <code>/api/*</code> request to <code>api/index.js</code>. That file runs the same Express app used locally (<code>backend/src/app.js</code>), so there is one codebase for development and production.</li>
+  <li>The Gemini key and the SMTP credentials are set as Vercel environment variables.</li>
+  <li>CORS allows localhost during development, the deployment's own address (detected automatically) and any origins in <code>CLIENT_ORIGINS</code>. Requests from any other site are refused.</li>
+  <li><code>/api/health</code> reports whether the chatbot and email are configured.</li>
+</ul>
+<p>The README covers the overview, features, stack, folder structure, local setup, environment variables and deployment steps.</p>
+
+<h2>9. Extra credit</h2>
+<table>
+  <tr><th style="width:36%">Feature</th><th>Implementation</th></tr>
+  <tr><td>Dark/light theme</td><td>Three palettes (DMG Green, Pocket Mono, CRT Night). The 3D world recolours live and the choice is remembered.</td></tr>
+  <tr><td>Mouse-reactive 3D</td><td>The hero avatar and the crystal "artifact" react to the pointer. Drag-to-orbit camera in game mode.</td></tr>
+  <tr><td>Chatbot citations</td><td>Source chips link to site sections, or open the matching station in game mode.</td></tr>
+  <tr><td>Filtering and search</td><td>Games by engine, models by tag, with text search.</td></tr>
+  <tr><td>Accessibility</td><td>Semantic HTML, ARIA, full keyboard play, skip link, focus styles, reduced-motion support, WebGL fallback. Lighthouse accessibility 100.</td></tr>
+  <tr><td>Beyond the list</td><td>Game audio engine, collectibles, fast travel, playable and downloadable builds, and the Sky Obby: a 19-platform course with moving, crumbling and blinking platforms, a spinning bar, checkpoints, a timer, a saved best time and a prize.</td></tr>
+</table>
+<div class="pair">
+<figure class="half"><img src="../screenshots/16-game-obby.png" alt="" /><figcaption>Figure 16. The Sky Obby: timer, checkpoints, spinning bar.</figcaption></figure>
+<figure class="half"><img src="../screenshots/14-game-model-gallery.png" alt="" /><figcaption>Figure 17. 3D Model Gallery panel in game mode.</figcaption></figure>
+</div>
+
+<h2>10. Testing, performance and accessibility</h2>
+<ul>
+  <li><strong>Automated tests:</strong> 26 Node tests for chunking, retrieval, the fallback reply, small talk, contact validation, the honeypot, rate limiting and header-injection protection (<code>cd backend &amp;&amp; npm test</code>).</li>
+  <li><strong>Browser tests:</strong> scripted runs in Chrome covered both views, every panel, the obby from launch to finish, the contact form and the promo player, with no console errors.</li>
+  <li><strong>Lighthouse (classic view, before → after optimisation):</strong>
+    <ul>
+      <li>Accessibility: 97 → 100</li>
+      <li>SEO: 92 → 100</li>
+      <li>Best practices: 100</li>
+      <li>Download size: 5.3 MB → 1.2 MB</li>
+      <li>Main JavaScript bundle: 1.07 MB → 180 KB (three.js now loads separately)</li>
+    </ul></li>
+  <li><strong>Optimisations:</strong>
+    <ul>
+      <li>three.js and the game load as separate chunks</li>
+      <li>the 3D viewer pauses off screen</li>
+      <li>fonts are self-hosted with preloading</li>
+      <li>screenshots have thumbnails</li>
+      <li>images and video posters lazy-load</li>
+      <li>the avatar is compressed as described in Module 2</li>
+    </ul></li>
+</ul>
+
+<h2>11. Challenges and solutions</h2>
+<table>
+  <tr><th style="width:34%">Problem</th><th>Solution</th></tr>
+  <tr><td>Videos played without sound in one browser</td><td>The VS Code built-in browser has no AAC decoder. Real browsers were fine. A "Sound check" panel now shows which formats the browser supports.</td></tr>
+  <tr><td>Game music clashed with videos</td><td>Rebuilt the audio on plain media elements with one rule: game audio pauses while any video plays.</td></tr>
+  <tr><td>Flickering, shiny ground</td><td>Two coplanar ground layers (z-fighting) plus shadow acne. Fixed by separating the layers, using matte materials, adding a shadow normal bias and moving the camera's near plane.</td></tr>
+  <tr><td>Promo text misaligned in After Effects</td><td>Text layer metrics differed between After Effects versions. The final version renders text as images, which line up exactly.</td></tr>
+  <tr><td>Glitch effects running for the whole video</td><td>In After Effects, setting a layer's in-point resets its out-point. The script now sets the in-point first.</td></tr>
+  <tr><td>Chatbot error 500</td><td>The API server wasn't running. Added a health check and clearer messages.</td></tr>
+  <tr><td>Email Reply-To injection risk</td><td>Pass addresses as structured objects instead of text, with a regression test.</td></tr>
+</table>
+
+<h2>12. Limitations and future work</h2>
+<ul>
+  <li>The avatar has no skeleton. A rigged version with walk-cycle animations would look more natural.</li>
+  <li>Only Dungeon Escape has a downloadable build. A Unity WebGL export would make the games playable inside the site.</li>
+  <li>The rate limits are kept in memory for each serverless instance. A shared store such as Redis would make them global.</li>
+  <li>Possible additions: voice input and multiple languages for the chatbot, and website analytics.</li>
+</ul>
+
+<h2>13. Conclusion</h2>
+<p>The project delivers all six modules: a portfolio that works as a playable 3D game and as a fast, accessible classic site, my avatar, an After Effects promo, a grounded chatbot that cites its sources, and a hardened contact system, all deployed from one repository. Building the portfolio as a game shows the same skills it describes: gameplay programming, 3D assets and polish.</p>
+
+<h2>Appendix A: Screenshot checklist</h2>
+<table>
+  <tr><th>Module</th><th>Screenshot</th><th>File</th></tr>
+  <tr><td>1</td><td>Classic home, games, models, education, about, mobile</td><td><code>docs/screenshots/01–05, 09</code></td></tr>
+  <tr><td>1</td><td>Game title, island, arcade, panels, menu</td><td><code>10–15</code></td></tr>
+  <tr><td>2</td><td>Avatar in the hero viewer and as the player</td><td><code>01, 11</code></td></tr>
+  <tr><td>3</td><td>Promo in the video player</td><td><code>08</code></td></tr>
+  <tr><td>4</td><td>Chat panel; live answer with sources</td><td><code>17</code> + yours</td></tr>
+  <tr><td>5</td><td>Form, success message; received email</td><td><code>06, 07</code> + yours</td></tr>
+  <tr><td>6</td><td>Vercel deployment page, live URL</td><td>yours</td></tr>
+  <tr><td>Extra</td><td>Sky Obby, model gallery</td><td><code>16, 14</code></td></tr>
+</table>
+
+<h2>Appendix B: Credits</h2>
+<ul>
+  <li>Fonts: Press Start 2P (CodeMan38) and IBM Plex Mono (IBM), SIL Open Font License.</li>
+  <li>Libraries: React, three.js, React Three Fiber and drei, Express, Zod, Nodemailer.</li>
+  <li>Game assets: as listed for each game. Most games use free online assets, and the ship and cannon models in Ship Brawl are my own.</li>
+  <li>Music and sound effects: original, generated by the scripts in <code>tools/</code>.</li>
+</ul>
+
+</body>
+</html>
