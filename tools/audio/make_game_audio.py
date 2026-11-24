@@ -1,15 +1,3 @@
-"""Background music, island ambience and sound effects for game mode.
-
-Music and ambience are rendered into a *circular* buffer (anything that runs past the
-end wraps to the start), so each file is exactly one seamless loop. The game plays them
-with plain <audio loop> elements. Each is written as Ogg Opus (gapless in Chrome, Edge
-and Firefox) plus an MP3 fallback for Safari.
-
-Sound effects are short WAV files played with plain <audio> elements too.
-
-Usage: python make_game_audio.py <out_dir>
-  -> music-island.ogg/.mp3, ambience-island.ogg/.mp3, sfx/*.wav
-"""
 import os
 import subprocess
 import sys
