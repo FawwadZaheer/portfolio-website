@@ -12,9 +12,8 @@ const SUGGESTIONS = [
   'Tell me about his Blender models',
 ]
 
-/** Read the server-sent-event stream from POST /api/chat and call back per event. */
-async function streamChat(payload, onEvent, signal) {
-  const res = await fetch(`${API_URL}/api/chat`, {
+async function postChat(payload, signal, query = '') {
+  const res = await fetch(`${API_URL}/api/chat${query}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -28,6 +27,21 @@ async function streamChat(payload, onEvent, signal) {
       if (data?.error) msg = data.error
     }
     throw new Error(msg)
+  }
+  return res
+}
+
+/**
+ * Read the server-sent-event stream from POST /api/chat and call back per event. If the
+ * stream arrives empty (some hosts don't pass streamed replies through), ask once more for
+ * the whole answer as JSON. Returns how many events were delivered.
+ */
+async function streamChat(payload, onEvent, signal) {
+  const res = await postChat(payload, signal)
+  let count = 0
+  const deliver = (event) => {
+    count++
+    onEvent(event)
   }
 
   const reader = res.body.getReader()
@@ -43,12 +57,27 @@ async function streamChat(payload, onEvent, signal) {
       const line = frame.trim()
       if (!line.startsWith('data:')) continue
       try {
-        onEvent(JSON.parse(line.slice(5)))
+        deliver(JSON.parse(line.slice(5)))
       } catch {
         /* ignore malformed frame */
       }
     }
   }
+  // a last frame without the trailing blank line
+  const tail = buffer.trim()
+  if (tail.startsWith('data:')) {
+    try {
+      deliver(JSON.parse(tail.slice(5)))
+    } catch {
+      /* ignore */
+    }
+  }
+
+  if (count === 0) {
+    const data = await (await postChat(payload, signal, '?mode=json')).json()
+    for (const event of data.events || []) deliver(event)
+  }
+  return count
 }
 
 export default function Chatbot() {

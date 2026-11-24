@@ -13,6 +13,7 @@ import PromoVideo from '../components/PromoVideo.jsx'
 import ThemeToggle from '../components/ThemeToggle.jsx'
 import { profile, about } from '../data.js'
 import { useTypewriter } from '../hooks.js'
+import ErrorBoundary from '../components/ErrorBoundary.jsx'
 import { ObbyHud, ObbyFinish, useObbyKeys } from './ObbyUI.jsx'
 import { PAD } from './obby.js'
 
@@ -566,9 +567,16 @@ export default function GameUI({ onClassic, loaded }) {
       )}
 
       <Toast />
-      {panel === 'obby-finish' && <ObbyFinish />}
-      {panel && panel !== 'obby-finish' && <Panel key={panel} id={panel} />}
-      {menuOpen && <Menu onClassic={onClassic} />}
+      {panel && (
+        <ErrorBoundary key={panel} name="panel" onReset={closePanel}>
+          {panel === 'obby-finish' ? <ObbyFinish /> : <Panel id={panel} />}
+        </ErrorBoundary>
+      )}
+      {menuOpen && (
+        <ErrorBoundary name="menu" onReset={() => game.set({ menuOpen: false })}>
+          <Menu onClassic={onClassic} />
+        </ErrorBoundary>
+      )}
     </>
   )
 }

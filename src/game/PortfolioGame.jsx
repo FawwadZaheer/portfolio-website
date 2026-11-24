@@ -11,6 +11,7 @@ import { useKeyboardControls } from './useControls.js'
 import { game, input, openPanel, player } from './store.js'
 import { games, models } from '../data.js'
 import { audio } from './audio.js'
+import ErrorBoundary from '../components/ErrorBoundary.jsx'
 import { run as obbyRun, platforms as obbyPlatforms } from './obby.js'
 
 // Chatbot source links point at classic-site anchors; open the matching station instead.
@@ -146,7 +147,16 @@ export default function PortfolioGame({ onClassic }) {
         </Suspense>
       </Canvas>
       <Loader onDone={() => setLoaded(true)} />
-      <GameUI onClassic={onClassic} loaded={loaded} />
+      <ErrorBoundary
+        name="game ui"
+        fallbackAction={
+          <button type="button" className="btn" onClick={onClassic}>
+            OPEN THE CLASSIC SITE
+          </button>
+        }
+      >
+        <GameUI onClassic={onClassic} loaded={loaded} />
+      </ErrorBoundary>
     </div>
   )
 }

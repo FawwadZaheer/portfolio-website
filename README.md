@@ -1,9 +1,9 @@
 # Fawwad Zaheer Rizvi: Interactive 3D Web Portfolio
 
-a retro, Game Boy-styled portfolio you can **play**. It opens as a small 3D island where my own avatar walks between an arcade of my games, a gallery of my Blender models, an academy, a mailbox and a chatbot robot. A classic scrolling version of the same content is one click away.
+Semester project: a retro, Game Boy-styled portfolio you can **play**. It opens as a small 3D island where my own avatar walks between an arcade of my games, a gallery of my Blender models, an academy, a mailbox and a chatbot robot. A classic scrolling version of the same content is one click away.
 
-- **Live site:** [https://portfolio-website-fawwad1.vercel.app/](url)
-- **Report:** [`docs/report/Fawwad_Portfolio_Report.pdf`](docs/report/Fawwad_Portfolio_Report.pdf)
+- **Live site:** https://portfolio-website-alpha-neon-97.vercel.app/
+- **Report:** [`docs/report/Fawwad_Portfolio_Report.pdf`](docs/report/Fawwad_Portfolio_Report.pdf) (Word version: [`.docx`](docs/report/Fawwad_Portfolio_Report.docx))
 - **Screenshots:** [`docs/screenshots/`](docs/screenshots/)
 
 ![Classic view](docs/screenshots/01-classic-home.png)

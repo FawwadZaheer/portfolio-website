@@ -1005,3 +1005,4 @@ body.game-player-open .chatbot { display: none; }
 @media (prefers-reduced-motion: reduce) { .obby-finish-kicker { animation: none; } }
 .obby-reward-audio { display: block; width: 100%; margin: -0.5rem 0 1.25rem; }
 .obby-reward-hint { font-size: .85rem; color: var(--dark); margin: -0.5rem 0 1.25rem !important; }
+.error-text { white-space: pre-wrap; font-size: .75rem; max-height: 40vh; overflow: auto; background: var(--darkest); color: var(--lightest); padding: .75rem; border: 0; margin: 0 0 1rem; }
