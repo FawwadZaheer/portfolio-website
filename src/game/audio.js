@@ -243,6 +243,24 @@ export const audio = {
     applyVolumes()
   },
 
+  /** What this browser can decode (for the Sound check panel). */
+  codecs() {
+    const vid = document.createElement('video')
+    const can = (t) => vid.canPlayType(t) !== ''
+    const ua = navigator.userAgent
+    const browser =
+      (navigator.userAgentData?.brands || [])
+        .map((b) => b.brand)
+        .find((b) => !/not.?a.?brand|chromium/i.test(b)) ||
+      (/Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox' : /Electron\//.test(ua) ? 'Electron app' : /Chrome\//.test(ua) ? 'Chromium-based' : /Safari\//.test(ua) ? 'Safari' : 'Unknown')
+    return {
+      browser: /Electron\//.test(ua) ? `${browser} (built-in app browser)` : browser,
+      aac: can('video/mp4; codecs="avc1.64001f, mp4a.40.2"'),
+      mp3: can('video/mp4; codecs="avc1.64001f, mp4a.6B"') || can('audio/mpeg'),
+      h264: can('video/mp4; codecs="avc1.64001f"'),
+    }
+  },
+
   /** Snapshot for the Sound check panel. */
   report() {
     const state = (el) => (!el ? 'not loaded' : el.error ? `error (code ${el.error.code})` : el.paused ? 'paused' : 'playing')

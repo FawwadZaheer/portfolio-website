@@ -244,10 +244,12 @@ function useAudioSettings() {
 
 /** Live view of what the browser reports about game audio, plus a test sound. */
 function SoundCheck() {
-  const [r, setR] = useState(audio.report())
-  const [codecs] = useState(() => audio.codecs())
+  // Defensive: a missing helper (e.g. an older audio.js) must never take the whole menu down.
+  const report = () => (typeof audio.report === 'function' ? audio.report() : { errors: [] })
+  const [r, setR] = useState(report)
+  const [codecs] = useState(() => (typeof audio.codecs === 'function' ? audio.codecs() : {}))
   useEffect(() => {
-    const id = setInterval(() => setR(audio.report()), 500)
+    const id = setInterval(() => setR(report()), 500)
     return () => clearInterval(id)
   }, [])
   const sw = window.__removedServiceWorkers
@@ -288,7 +290,7 @@ function SoundCheck() {
             <span>{sw} (reload once)</span>
           </li>
         ) : null}
-        {r.errors.map((e) => (
+        {(r.errors || []).map((e) => (
           <li key={e}>
             <span className="menu-name">Error</span>
             <span>{e}</span>
