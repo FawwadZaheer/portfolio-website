@@ -44,6 +44,13 @@ async function streamChat(payload, onEvent, signal) {
     onEvent(event)
   }
 
+  // The deployed site (Vercel) answers in one JSON reply instead of a stream.
+  if ((res.headers.get('content-type') || '').includes('application/json')) {
+    const data = await res.json()
+    for (const event of data.events || []) deliver(event)
+    return count
+  }
+
   const reader = res.body.getReader()
   const decoder = new TextDecoder()
   let buffer = ''

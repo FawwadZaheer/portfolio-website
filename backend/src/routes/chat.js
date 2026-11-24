@@ -62,12 +62,8 @@ export function chatRouter({ index, config }) {
     if (req.query.mode === 'json') return answerAsJson(parsed.data, res)
 
     const abort = new AbortController()
-<<<<<<< HEAD
     // Stop the AI call if the visitor closes the chat mid-answer. Not on Vercel: its runtime
     // can report the connection as closed before the answer is written.
-=======
-	
->>>>>>> 9642f15578b7e228d10a90d82df565ddf04517e0
     if (!process.env.VERCEL) res.on('close', () => !res.writableEnded && abort.abort())
 
     res.status(200)

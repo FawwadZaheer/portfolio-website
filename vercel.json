@@ -4,16 +4,34 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
+    "api/chat.js": {
+      "includeFiles": "rag/index.json",
+      "maxDuration": 30
+    },
     "api/index.js": {
       "includeFiles": "{rag/index.json,data/**}",
       "maxDuration": 30
     }
   },
-  "rewrites": [{ "source": "/api/(.*)", "destination": "/api" }],
+  "rewrites": [
+    {
+      "source": "/api/contact",
+      "destination": "/api"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api"
+    }
+  ],
   "headers": [
     {
       "source": "/(models|draco|fonts|audio)/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
     }
   ]
 }
