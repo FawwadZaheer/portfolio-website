@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './styles.css'
 
-// This site doesn't use a service worker. Remove any left behind by another project that
-// ran on the same address (e.g. localhost:5173): they can serve stale media files.
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .getRegistrations()
