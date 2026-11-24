@@ -1,6 +1,3 @@
-// Contact form validation on the frontend. Mirrors backend/src/routes/contact.js
-// (the server checks everything again: never trust the browser).
-
 export const LIMITS = {
   name: [2, 80],
   email: [3, 254],
