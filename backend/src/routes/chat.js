@@ -35,7 +35,10 @@ export function chatRouter({ index, config }) {
     }
 
     const abort = new AbortController()
-    res.on('close', () => abort.abort())
+    // Stop the AI call if the visitor closes the chat mid-answer. Not on Vercel: its runtime
+    // can report the connection as closed before the answer is written, which would cancel
+    // every reply (the visitor then sees "No answer was received").
+    if (!process.env.VERCEL) res.on('close', () => !res.writableEnded && abort.abort())
 
     res.writeHead(200, {
       'Content-Type': 'text/event-stream; charset=utf-8',
@@ -54,8 +57,8 @@ export function chatRouter({ index, config }) {
       }
       for await (const event of chatEvents(parsed.data, deps)) send(event)
     } catch (err) {
+      console.error('[chat] failed:', err.name, err.status ?? '', err.message)
       if (!abort.signal.aborted) {
-        console.error('[chat] failed:', err.name, err.status ?? '', err.message)
         const busy = err.status === 429 || err.status === 503
         send({
           type: 'error',
