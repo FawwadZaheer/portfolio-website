@@ -1,8 +1,3 @@
-// EDIT THIS FILE: all of your content lives here.
-// Media files live in /public/media (see README).
-
-// Bump MEDIA_VERSION whenever you replace files in /public/media or /public/video:
-// it changes every URL, so browsers can't keep playing an old cached copy.
 export const MEDIA_VERSION = '2026-11-24c'
 const media = (kind, slug, file) => `/media/${kind}/${slug}/${file}?v=${MEDIA_VERSION}`
 
